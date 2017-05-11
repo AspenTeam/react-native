@@ -655,7 +655,7 @@ var NavigatorIOS = React.createClass({
    * Navigate forward to a new route.
    * @param route The new route to navigate to.
    */
-  push: function(route: Route) {
+  push: function(route: Route, animated: boolean = true) {
     invariant(!!route, 'Must supply route to push');
     // Make sure all previous requests are caught up first. Otherwise reject.
     if (this.state.requestedTopOfStack === this.state.observedTopOfStack) {
@@ -671,6 +671,7 @@ var NavigatorIOS = React.createClass({
           requestedTopOfStack: nextStack.length - 1,
           makingNavigatorRequest: true,
           updatingAllIndicesAtOrBeyond: nextStack.length - 1,
+          disableNavigationAnimation: !animated
         });
       });
     }
@@ -859,6 +860,8 @@ var NavigatorIOS = React.createClass({
     // computation of navigator children.
     var items = shouldRecurseToNavigator ?
       this.state.routeStack.map(this._routeToStackItem) : null;
+
+    let animated = this.state.disableNavigationAnimation === true ? false : true;
     return (
       <StaticContainer shouldUpdate={shouldRecurseToNavigator}>
         <NavigatorTransitionerIOS
@@ -867,6 +870,7 @@ var NavigatorIOS = React.createClass({
           // $FlowFixMe(>=0.41.0)
           vertical={this.props.vertical}
           requestedTopOfStack={this.state.requestedTopOfStack}
+          animated={animated}
           onNavigationComplete={this._handleNavigationComplete}
           interactivePopGestureEnabled={this.props.interactivePopGestureEnabled}>
           {items}

@@ -575,11 +575,11 @@ BOOL jsGettingtooSlow =
       RCTWrapperViewController *vc = [[RCTWrapperViewController alloc] initWithNavItem:(RCTNavItem *)lastView];
       vc.navigationListener = self;
       _numberOfViewControllerMovesToIgnore = 1;
-      [_navigationController pushViewController:vc animated:(currentReactCount > 1)];
+      [_navigationController pushViewController:vc animated:(currentReactCount > 1 && _animated)];
     } else if (reactPopN) {
       UIViewController *viewControllerToPopTo = _navigationController.viewControllers[(currentReactCount - 1)];
       _numberOfViewControllerMovesToIgnore = viewControllerCount - currentReactCount;
-      [_navigationController popToViewController:viewControllerToPopTo animated:YES];
+      [_navigationController popToViewController:viewControllerToPopTo animated:_animated];
     } else {
       RCTLogError(@"Pushing or popping more than one view at a time from JS");
     }
