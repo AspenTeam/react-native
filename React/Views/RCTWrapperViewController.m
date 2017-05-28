@@ -115,9 +115,11 @@ static UIView *RCTFindNavBarShadowViewInView(UIView *view)
     bar.barTintColor = _navItem.barTintColor;
     bar.tintColor = _navItem.tintColor;
     bar.translucent = _navItem.translucent;
-    bar.titleTextAttributes = _navItem.titleTextColor ? @{
-      NSForegroundColorAttributeName: _navItem.titleTextColor
-    } : nil;
+    if (_navItem.titleTextColor != nil) {
+        NSMutableDictionary *newAttributes = bar.titleTextAttributes ? bar.titleTextAttributes.mutableCopy :  [NSMutableDictionary new];
+        [newAttributes setObject:_navItem.titleTextColor forKey:NSForegroundColorAttributeName];
+        bar.titleTextAttributes = newAttributes;
+    }
 
     RCTFindNavBarShadowViewInView(bar).hidden = _navItem.shadowHidden;
 
