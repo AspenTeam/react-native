@@ -30,7 +30,7 @@
 @property (nonatomic, strong) UIColor *titleTextColor;
 @property (nonatomic, assign) BOOL translucent;
 
-@property (nonatomic, readonly) UIImageView *titleImageView;
+@property (nonatomic, readonly) UIView *titleView;
 @property (nonatomic, readonly) UIBarButtonItem *backButtonItem;
 @property (nonatomic, readonly) UIBarButtonItem *leftButtonItem;
 @property (nonatomic, readonly) UIBarButtonItem *rightButtonItem;

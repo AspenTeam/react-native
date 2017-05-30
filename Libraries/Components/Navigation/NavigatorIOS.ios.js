@@ -85,6 +85,8 @@ type Route = {
   component: Function,
   title: string,
   titleImage?: Object,
+  titleComponent?: Function,
+  titleComponentPassProps?: Object,
   passProps?: Object,
   backButtonTitle?: string,
   backButtonIcon?: Object,
@@ -325,6 +327,17 @@ var NavigatorIOS = React.createClass({
        * route.
        */
       title: PropTypes.string.isRequired,
+
+      /**
+       * The React Class to render as the titleView
+       */
+      titleComponent: PropTypes.func,
+
+      /**
+       * Use this to specify additional props to pass to the rendered title
+       * component.
+       */
+      titleComponentPassProps: PropTypes.object,
 
       /**
        * If set, a title image will appear instead of the text title.
@@ -846,12 +859,13 @@ var NavigatorIOS = React.createClass({
   },
 
   _routeToStackItem: function(routeArg: Route, i: number) {
-    var {component, wrapperStyle, passProps, ...route} = routeArg;
+    var {component, wrapperStyle, passProps, titleComponent, titleComponentPassProps, ...route} = routeArg;
     var {itemWrapperStyle, ...props} = this.props;
     var shouldUpdateChild =
       this.state.updatingAllIndicesAtOrBeyond != null &&
       this.state.updatingAllIndicesAtOrBeyond >= i;
     var Component = component;
+    var TitleComponent = titleComponent;
     return (
       <StaticContainer key={'nav' + i} shouldUpdate={shouldUpdateChild}>
         <RCTNavigatorItem
@@ -867,6 +881,7 @@ var NavigatorIOS = React.createClass({
             route={route}
             {...passProps}
           />
+          { titleComponent ? <TitleComponent {...titleComponentPassProps} /> : undefined }
         </RCTNavigatorItem>
       </StaticContainer>
     );

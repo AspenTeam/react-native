@@ -43,7 +43,11 @@
 
 - (instancetype)initWithNavItem:(RCTNavItem *)navItem
 {
-  if ((self = [self initWithContentView:navItem])) {
+  UIView *contentView = navItem;
+  if (navItem.reactSubviews != nil && navItem.reactSubviews.count > 0) {
+    contentView = navItem.reactSubviews[0];
+  }
+  if ((self = [self initWithContentView:contentView])) {
     _navItem = navItem;
   }
   return self;
@@ -115,17 +119,12 @@ static UIView *RCTFindNavBarShadowViewInView(UIView *view)
     bar.barTintColor = _navItem.barTintColor;
     bar.tintColor = _navItem.tintColor;
     bar.translucent = _navItem.translucent;
-    if (_navItem.titleTextColor != nil) {
-        NSMutableDictionary *newAttributes = bar.titleTextAttributes ? bar.titleTextAttributes.mutableCopy :  [NSMutableDictionary new];
-        [newAttributes setObject:_navItem.titleTextColor forKey:NSForegroundColorAttributeName];
-        bar.titleTextAttributes = newAttributes;
-    }
 
     RCTFindNavBarShadowViewInView(bar).hidden = _navItem.shadowHidden;
 
     UINavigationItem *item = self.navigationItem;
     item.title = _navItem.title;
-    item.titleView = _navItem.titleImageView;
+    item.titleView = _navItem.titleView;
 #if !TARGET_OS_TV
     item.backBarButtonItem = _navItem.backButtonItem;
 #endif //TARGET_OS_TV

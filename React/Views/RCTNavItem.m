@@ -9,16 +9,20 @@
 
 #import "RCTNavItem.h"
 
+#import "UIView+React.h"
+
 @implementation RCTNavItem
 
 @synthesize backButtonItem = _backButtonItem;
 @synthesize leftButtonItem = _leftButtonItem;
 @synthesize rightButtonItem = _rightButtonItem;
 
-- (UIImageView *)titleImageView
+- (UIView *)titleView
 {
   if (_titleImage) {
     return [[UIImageView alloc] initWithImage:_titleImage];
+  } else if (self.reactSubviews != nil && self.reactSubviews.count > 1) {
+    return self.reactSubviews[1];
   } else {
     return nil;
   }
