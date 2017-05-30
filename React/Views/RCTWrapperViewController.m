@@ -44,9 +44,9 @@
 - (instancetype)initWithNavItem:(RCTNavItem *)navItem
 {
   UIView *contentView = navItem;
-  if (navItem.reactSubviews != nil && navItem.reactSubviews.count > 0) {
-    contentView = navItem.reactSubviews[0];
-  }
+  // if (navItem.reactSubviews != nil && navItem.reactSubviews.count > 0) {
+  //   contentView = navItem.reactSubviews[0];
+  // }
   if ((self = [self initWithContentView:contentView])) {
     _navItem = navItem;
   }
