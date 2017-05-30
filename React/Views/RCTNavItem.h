@@ -18,6 +18,9 @@
 @property (nonatomic, strong) UIImage *leftButtonIcon;
 @property (nonatomic, copy) NSString *leftButtonTitle;
 @property (nonatomic, assign) UIBarButtonSystemItem leftButtonSystemIcon;
+@property (nonatomic, strong) UIImage *secondLeftButtonIcon;
+@property (nonatomic, copy) NSString *secondLeftButtonTitle;
+@property (nonatomic, assign) UIBarButtonSystemItem secondLeftButtonSystemIcon;
 @property (nonatomic, strong) UIImage *rightButtonIcon;
 @property (nonatomic, copy) NSString *rightButtonTitle;
 @property (nonatomic, assign) UIBarButtonSystemItem rightButtonSystemIcon;
@@ -32,10 +35,11 @@
 
 @property (nonatomic, readonly) UIView *titleView;
 @property (nonatomic, readonly) UIBarButtonItem *backButtonItem;
-@property (nonatomic, readonly) UIBarButtonItem *leftButtonItem;
+@property (nonatomic, readonly) NSArray<UIBarButtonItem *> *leftButtonItems;
 @property (nonatomic, readonly) UIBarButtonItem *rightButtonItem;
 
 @property (nonatomic, copy) RCTBubblingEventBlock onLeftButtonPress;
+@property (nonatomic, copy) RCTBubblingEventBlock onSecondLeftButtonPress;
 @property (nonatomic, copy) RCTBubblingEventBlock onRightButtonPress;
 
 @end

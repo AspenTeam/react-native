@@ -94,6 +94,10 @@ type Route = {
   leftButtonIcon?: Object,
   leftButtonSystemIcon?: SystemButtonType,
   onLeftButtonPress?: Function,
+  secondLeftButtonTitle?: string,
+  secondLeftButtonIcon?: Object,
+  secondLeftButtonSystemIcon?: SystemButtonType,
+  onSecondLeftButtonPress?: Function,
   rightButtonTitle?: string,
   rightButtonIcon?: Object,
   rightButtonSystemIcon?: SystemButtonType,
@@ -335,7 +339,8 @@ var NavigatorIOS = React.createClass({
 
       /**
        * Use this to specify additional props to pass to the rendered title
-       * component.
+       * component. `NavigatorIOS` will automatically pass in `title` props
+       to the component.
        */
       titleComponentPassProps: PropTypes.object,
 
@@ -391,6 +396,33 @@ var NavigatorIOS = React.createClass({
        * pressed.
        */
       onLeftButtonPress: PropTypes.func,
+
+      /**
+       * If set, the left navigation button image will be displayed using
+       * this source.
+       */
+      secondLeftButtonIcon: Image.propTypes.source,
+
+      /**
+       * If set, the left navigation button will display this text.
+       */
+      secondLeftButtonTitle: PropTypes.string,
+
+      /**
+       * If set, the left header button will appear with this system icon
+       *
+       * Supported icons are `done`, `cancel`, `edit`, `save`, `add`,
+       * `compose`, `reply`, `action`, `organize`, `bookmarks`, `search`,
+       * `refresh`, `stop`, `camera`, `trash`, `play`, `pause`, `rewind`,
+       * `fast-forward`, `undo`, `redo`, and `page-curl`
+       */
+      secondLeftButtonSystemIcon: PropTypes.oneOf(Object.keys(SystemIcons)),
+
+      /**
+       * This function will be invoked when the left navigation bar item is
+       * pressed.
+       */
+      onSecondLeftButtonPress: PropTypes.func,
 
       /**
        * If set, the right navigation button image will be displayed using
@@ -859,7 +891,7 @@ var NavigatorIOS = React.createClass({
   },
 
   _routeToStackItem: function(routeArg: Route, i: number) {
-    var {component, wrapperStyle, passProps, titleComponent, titleComponentPassProps, ...route} = routeArg;
+    var {component, wrapperStyle, passProps, titleComponent, title, titleComponentPassProps, ...route} = routeArg;
     var {itemWrapperStyle, ...props} = this.props;
     var shouldUpdateChild =
       this.state.updatingAllIndicesAtOrBeyond != null &&
@@ -881,7 +913,7 @@ var NavigatorIOS = React.createClass({
             route={route}
             {...passProps}
           />
-          { titleComponent ? <TitleComponent {...titleComponentPassProps} /> : undefined }
+          { titleComponent ? <TitleComponent title={title} {...titleComponentPassProps} /> : undefined }
         </RCTNavigatorItem>
       </StaticContainer>
     );

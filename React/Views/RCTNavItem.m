@@ -14,7 +14,7 @@
 @implementation RCTNavItem
 
 @synthesize backButtonItem = _backButtonItem;
-@synthesize leftButtonItem = _leftButtonItem;
+@synthesize leftButtonItems = _leftButtonItems;
 @synthesize rightButtonItem = _rightButtonItem;
 
 - (UIView *)titleView
@@ -32,6 +32,7 @@
 {
   if (self = [super init]) {
     _leftButtonSystemIcon = NSNotFound;
+    _secondLeftButtonSystemIcon = NSNotFound;
     _rightButtonSystemIcon = NSNotFound;
   }
   return self;
@@ -72,54 +73,112 @@
 - (void)setLeftButtonTitle:(NSString *)leftButtonTitle
 {
   _leftButtonTitle = leftButtonTitle;
-  _leftButtonItem = nil;
+  _leftButtonItems = nil;
 }
 
 - (void)setLeftButtonIcon:(UIImage *)leftButtonIcon
 {
   _leftButtonIcon = leftButtonIcon;
-  _leftButtonItem = nil;
+  _leftButtonItems = nil;
 }
 
 - (void)setLeftButtonSystemIcon:(UIBarButtonSystemItem)leftButtonSystemIcon
 {
   _leftButtonSystemIcon = leftButtonSystemIcon;
-  _leftButtonItem = nil;
+  _leftButtonItems = nil;
 }
 
-- (UIBarButtonItem *)leftButtonItem
+- (void)setSecondLeftButtonTitle:(NSString *)secondLeftButtonTitle
 {
-  if (!_leftButtonItem) {
+  _secondLeftButtonTitle = secondLeftButtonTitle;
+  _leftButtonItems = nil;
+}
+
+- (void)setSecondLeftButtonIcon:(UIImage *)secondLeftButtonIcon
+{
+  _secondLeftButtonIcon = secondLeftButtonIcon;
+  _leftButtonItems = nil;
+}
+
+- (void)setSecondLeftButtonSystemIcon:(UIBarButtonSystemItem)secondLeftButtonSystemIcon
+{
+  _secondLeftButtonSystemIcon = secondLeftButtonSystemIcon;
+  _leftButtonItems = nil;
+}
+
+- (NSArray<UIBarButtonItem *> *)leftButtonItems
+{
+  if (!_leftButtonItems) {
+  NSMutableArray *leftButtonItems = [NSMutableArray array];
+    
+    UIBarButtonItem *leftBarButtonItem;
     if (_leftButtonIcon) {
-      _leftButtonItem =
+      leftBarButtonItem =
       [[UIBarButtonItem alloc] initWithImage:_leftButtonIcon
                                        style:UIBarButtonItemStylePlain
                                       target:self
                                       action:@selector(handleLeftButtonPress)];
 
     } else if (_leftButtonTitle.length) {
-      _leftButtonItem =
+      leftBarButtonItem =
       [[UIBarButtonItem alloc] initWithTitle:_leftButtonTitle
                                        style:UIBarButtonItemStylePlain
                                       target:self
                                       action:@selector(handleLeftButtonPress)];
 
     } else if (_leftButtonSystemIcon != NSNotFound) {
-      _leftButtonItem =
+      leftBarButtonItem =
       [[UIBarButtonItem alloc] initWithBarButtonSystemItem:_leftButtonSystemIcon
                                                     target:self
                                                     action:@selector(handleLeftButtonPress)];
-    } else {
-      _leftButtonItem = nil;
     }
+
+    if  (leftBarButtonItem != nil) {
+      [leftButtonItems addObject: leftBarButtonItem];
+    }
+    
+    UIBarButtonItem *secondLeftBarButtonItem;
+    if (_secondLeftButtonIcon) {
+      secondLeftBarButtonItem =
+      [[UIBarButtonItem alloc] initWithImage:_secondLeftButtonIcon
+                                       style:UIBarButtonItemStylePlain
+                                      target:self
+                                      action:@selector(handleSecondLeftButtonPress)];
+
+    } else if (_secondLeftButtonTitle.length) {
+      secondLeftBarButtonItem =
+      [[UIBarButtonItem alloc] initWithTitle:_secondLeftButtonTitle
+                                       style:UIBarButtonItemStylePlain
+                                      target:self
+                                      action:@selector(handleSecondLeftButtonPress)];
+
+    } else if (_secondLeftButtonSystemIcon != NSNotFound) {
+      secondLeftBarButtonItem =
+      [[UIBarButtonItem alloc] initWithBarButtonSystemItem:_secondLeftButtonSystemIcon
+                                                    target:self
+                                                    action:@selector(handleSecondLeftButtonPress)];
+    }
+
+    if  (secondLeftBarButtonItem != nil) {
+      [leftButtonItems addObject: secondLeftBarButtonItem];
+    }
+
+    _leftButtonItems = leftButtonItems;
   }
-  return _leftButtonItem;
+  return _leftButtonItems;
 }
 
 - (void)handleLeftButtonPress
 {
   if (_onLeftButtonPress) {
     _onLeftButtonPress(nil);
+  }
+}
+
+- (void)handleSecondLeftButtonPress
+{
+  if (_onSecondLeftButtonPress) {
+    _onSecondLeftButtonPress(nil);
   }
 }
 
