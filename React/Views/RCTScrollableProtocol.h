@@ -25,6 +25,8 @@
  */
 - (void)scrollToEnd:(BOOL)animated;
 - (void)zoomToRect:(CGRect)rect animated:(BOOL)animated;
+- (void)zoomToScale:(CGFloat)scale animated:(BOOL)animated;
+- (void)doubleTapZoom;
 
 - (void)addScrollListener:(NSObject<UIScrollViewDelegate> *)scrollListener;
 - (void)removeScrollListener:(NSObject<UIScrollViewDelegate> *)scrollListener;

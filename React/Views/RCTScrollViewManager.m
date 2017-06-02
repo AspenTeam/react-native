@@ -179,4 +179,34 @@ RCT_EXPORT_METHOD(zoomToRect:(nonnull NSNumber *)reactTag
   }];
 }
 
+RCT_EXPORT_METHOD(zoomToScale:(nonnull NSNumber *)reactTag
+                  withScale:(CGFloat)scale
+                  animated:(BOOL)animated)
+{
+  [self.bridge.uiManager addUIBlock:
+   ^(__unused RCTUIManager *uiManager, NSDictionary<NSNumber *, UIView *> *viewRegistry){
+    UIView *view = viewRegistry[reactTag];
+    if ([view conformsToProtocol:@protocol(RCTScrollableProtocol)]) {
+      [(id<RCTScrollableProtocol>)view zoomToScale: scale animated:animated];
+    } else {
+      RCTLogError(@"tried to zoomToScale: on non-RCTScrollableProtocol view %@ "
+                  "with tag #%@", view, reactTag);
+    }
+  }];
+}
+
+RCT_EXPORT_METHOD(doubleTapZoom:(nonnull NSNumber *)reactTag)
+{
+  [self.bridge.uiManager addUIBlock:
+   ^(__unused RCTUIManager *uiManager, NSDictionary<NSNumber *, UIView *> *viewRegistry){
+    UIView *view = viewRegistry[reactTag];
+    if ([view conformsToProtocol:@protocol(RCTScrollableProtocol)]) {
+      [(id<RCTScrollableProtocol>)view doubleTapZoom];
+    } else {
+      RCTLogError(@"tried to doubleTapZoom: on non-RCTScrollableProtocol view %@ "
+                  "with tag #%@", view, reactTag);
+    }
+  }];
+}
+
 @end

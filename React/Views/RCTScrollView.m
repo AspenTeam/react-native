@@ -656,6 +656,21 @@ static inline void RCTApplyTranformationAccordingLayoutDirection(UIView *view, U
   [_scrollView zoomToRect:rect animated:animated];
 }
 
+- (void)zoomToScale:(CGFloat)scale animated:(BOOL)animated
+{
+  [_scrollView setZoomScale:scale animated:animated];
+}
+
+- (void)doubleTapZoom
+{
+  if (_scrollView.zoomScale < _scrollView.maximumZoomScale) {
+    [_scrollView setZoomScale:_scrollView.maximumZoomScale animated:true];
+  } else {
+    [_scrollView setZoomScale:_scrollView.minimumZoomScale animated:true];
+  }
+  // [_scrollView setZoomScale:scale animated:animated];
+}
+
 - (void)refreshContentInset
 {
   [RCTView autoAdjustInsetsForView:self

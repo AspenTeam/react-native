@@ -452,6 +452,25 @@ var ScrollResponderMixin = {
   },
 
   /**
+   * A helper function to zoom to a specific scale in the scrollview
+   *
+   * @platform ios
+   */
+  scrollResponderZoomToScale: function(
+    scale: number,
+    animated?: boolean
+  ) {
+    invariant(ScrollViewManager && ScrollViewManager.zoomToScale, 'zoomToScale is not implemented');
+    ScrollViewManager.zoomToScale(this.scrollResponderGetScrollableNode(), scale, animated !== false);
+  },
+
+  scrollResponderDoubleTap: function(
+
+  ) {
+    ScrollViewManager.doubleTapZoom(this.scrollResponderGetScrollableNode());
+  },
+
+  /**
    * This method should be used as the callback to onFocus in a TextInputs'
    * parent view. Note that any module using this mixin needs to return
    * the parent view's ref in getScrollViewRef() in order to use this method.
