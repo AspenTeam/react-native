@@ -602,6 +602,10 @@ const TextInput = React.createClass({
     isInAParentText: React.PropTypes.bool
   },
 
+  acceptAutocorrect: function() {
+    TextInputState.acceptAutocorrectForTextInput(ReactNative.findNodeHandle(this));
+  },
+
   /**
    * Removes all text from the `TextInput`.
    */

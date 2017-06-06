@@ -1088,6 +1088,16 @@ RCT_EXPORT_METHOD(blur:(nonnull NSNumber *)reactTag)
   }];
 }
 
+RCT_EXPORT_METHOD(acceptAutocorrect:(nonnull NSNumber *)reactTag)
+{
+  [self addUIBlock:^(__unused RCTUIManager *uiManager, NSDictionary<NSNumber *, UIView *> *viewRegistry){
+    UIView *currentResponder = viewRegistry[reactTag];
+    if ([currentResponder respondsToSelector:@selector(acceptAutocorrect)]) {
+      [currentResponder performSelector:@selector(acceptAutocorrect)];
+    }
+  }];
+}
+
 RCT_EXPORT_METHOD(findSubviewIn:(nonnull NSNumber *)reactTag atPoint:(CGPoint)point callback:(RCTResponseSenderBlock)callback)
 {
   [self addUIBlock:^(__unused RCTUIManager *uiManager, NSDictionary<NSNumber *, UIView *> *viewRegistry) {

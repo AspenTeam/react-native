@@ -184,6 +184,13 @@ RCT_NOT_IMPLEMENTED(- (instancetype)initWithCoder:(NSCoder *)aDecoder)
   }
 }
 
+- (void)acceptAutocorrect
+{
+  [_textView.inputDelegate selectionWillChange:_textView];
+  [_textView.inputDelegate selectionDidChange:_textView];
+  [self textViewDidChange:_textView];
+}
+
 static NSAttributedString *removeReactTagFromString(NSAttributedString *string)
 {
   if (string.length == 0) {
