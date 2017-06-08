@@ -327,6 +327,11 @@ var NavigatorIOS = React.createClass({
       component: PropTypes.func.isRequired,
 
       /**
+       * A reference to the component that gets created
+       */
+      componentRef: PropTypes.func,
+
+      /**
        * The title displayed in the navigation bar and the back button for this
        * route.
        */
@@ -891,7 +896,7 @@ var NavigatorIOS = React.createClass({
   },
 
   _routeToStackItem: function(routeArg: Route, i: number) {
-    var {component, wrapperStyle, passProps, titleComponent, title, titleComponentPassProps, ...route} = routeArg;
+    var {component, componentRef, wrapperStyle, passProps, titleComponent, title, titleComponentPassProps, ...route} = routeArg;
     var {itemWrapperStyle, ...props} = this.props;
     var shouldUpdateChild =
       this.state.updatingAllIndicesAtOrBeyond != null &&
@@ -909,6 +914,7 @@ var NavigatorIOS = React.createClass({
             wrapperStyle
           ]}>
           <Component
+            ref={componentRef}
             navigator={this.navigator}
             route={route}
             {...passProps}
