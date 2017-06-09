@@ -893,6 +893,13 @@ RCT_SCROLL_EVENT_HANDLER(scrollViewDidZoom, onScroll)
   return YES;
 }
 
+- (void)scrollViewDidScrollToTop:(UIScrollView *)scrollView
+{
+  // Fire the end deceleration event
+  RCT_SEND_SCROLL_EVENT(onMomentumScrollEnd, nil);
+  RCT_FORWARD_SCROLL_EVENT(scrollViewDidScrollToTop:scrollView);
+}
+
 - (UIView *)viewForZoomingInScrollView:(__unused UIScrollView *)scrollView
 {
   return _contentView;
