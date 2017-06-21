@@ -74,7 +74,6 @@ var TextInputState = {
 
   acceptAutocorrectForTextInput: function(textFieldID: ?number) {
     if (this._currentlyFocusedID === textFieldID && textFieldID !== null) {
-      this._currentlyFocusedID = null;
       if (Platform.OS === 'ios') {
         UIManager.acceptAutocorrect(textFieldID);
       } else if (Platform.OS === 'android') {
