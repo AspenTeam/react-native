@@ -423,6 +423,9 @@ RCT_NOT_IMPLEMENTED(- (instancetype)initWithCoder:(NSCoder *)aDecoder)
     self.paused = YES;
     // Reset the parallel position tracker
   }];
+
+  RCTWrapperViewController *thisController = (RCTWrapperViewController *)viewController;
+  navigationController.tabBarController.tabBar.hidden = thisController.navItem.tabBarHidden;
 }
 
 - (BOOL)requestSchedulingJavaScriptNavigation

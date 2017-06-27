@@ -464,6 +464,11 @@ var NavigatorIOS = React.createClass({
       navigationBarHidden: PropTypes.bool,
 
       /**
+       * Boolean value that indicates whether the tab bar is hidden.
+       */
+      tabBarHidden: PropTypes.bool,
+
+      /**
        * Boolean value that indicates whether to hide the 1px hairline
        * shadow.
        */
