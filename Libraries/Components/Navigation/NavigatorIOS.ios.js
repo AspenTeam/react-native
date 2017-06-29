@@ -102,6 +102,14 @@ type Route = {
   rightButtonIcon?: Object,
   rightButtonSystemIcon?: SystemButtonType,
   onRightButtonPress?: Function,
+  secondRightButtonTitle?: string,
+  secondRightButtonIcon?: Object,
+  secondRightButtonSystemIcon?: SystemButtonType,
+  onSecondRightButtonPress?: Function,
+  thirdRightButtonTitle?: string,
+  thirdRightButtonIcon?: Object,
+  thirdRightButtonSystemIcon?: SystemButtonType,
+  onThirdRightButtonPress?: Function,
   wrapperStyle?: any,
 };
 
@@ -452,6 +460,60 @@ var NavigatorIOS = React.createClass({
        * pressed.
        */
       onRightButtonPress: PropTypes.func,
+
+      /**
+       * If set, the left navigation button image will be displayed using
+       * this source.
+       */
+      secondRightButtonIcon: Image.propTypes.source,
+
+      /**
+       * If set, the left navigation button will display this text.
+       */
+      secondRightButtonTitle: PropTypes.string,
+
+      /**
+       * If set, the left header button will appear with this system icon
+       *
+       * Supported icons are `done`, `cancel`, `edit`, `save`, `add`,
+       * `compose`, `reply`, `action`, `organize`, `bookmarks`, `search`,
+       * `refresh`, `stop`, `camera`, `trash`, `play`, `pause`, `rewind`,
+       * `fast-forward`, `undo`, `redo`, and `page-curl`
+       */
+      secondRightButtonSystemIcon: PropTypes.oneOf(Object.keys(SystemIcons)),
+
+      /**
+       * This function will be invoked when the left navigation bar item is
+       * pressed.
+       */
+      onSecondRightButtonPress: PropTypes.func,
+
+      /**
+       * If set, the left navigation button image will be displayed using
+       * this source.
+       */
+      thirdRightButtonIcon: Image.propTypes.source,
+
+      /**
+       * If set, the left navigation button will display this text.
+       */
+      thirdRightButtonTitle: PropTypes.string,
+
+      /**
+       * If set, the left header button will appear with this system icon
+       *
+       * Supported icons are `done`, `cancel`, `edit`, `save`, `add`,
+       * `compose`, `reply`, `action`, `organize`, `bookmarks`, `search`,
+       * `refresh`, `stop`, `camera`, `trash`, `play`, `pause`, `rewind`,
+       * `fast-forward`, `undo`, `redo`, and `page-curl`
+       */
+      thirdRightButtonSystemIcon: PropTypes.oneOf(Object.keys(SystemIcons)),
+
+      /**
+       * This function will be invoked when the left navigation bar item is
+       * pressed.
+       */
+      onThirdRightButtonPress: PropTypes.func,
 
       /**
        * Styles for the navigation item containing the component.

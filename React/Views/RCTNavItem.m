@@ -15,7 +15,7 @@
 
 @synthesize backButtonItem = _backButtonItem;
 @synthesize leftButtonItems = _leftButtonItems;
-@synthesize rightButtonItem = _rightButtonItem;
+@synthesize rightButtonItems = _rightButtonItems;
 
 - (UIView *)titleView
 {
@@ -185,54 +185,163 @@
 - (void)setRightButtonTitle:(NSString *)rightButtonTitle
 {
   _rightButtonTitle = rightButtonTitle;
-  _rightButtonItem = nil;
+  _rightButtonItems = nil;
 }
 
 - (void)setRightButtonIcon:(UIImage *)rightButtonIcon
 {
   _rightButtonIcon = rightButtonIcon;
-  _rightButtonItem = nil;
+  _rightButtonItems = nil;
 }
 
 - (void)setRightButtonSystemIcon:(UIBarButtonSystemItem)rightButtonSystemIcon
 {
   _rightButtonSystemIcon = rightButtonSystemIcon;
-  _rightButtonItem = nil;
+  _rightButtonItems = nil;
 }
 
-- (UIBarButtonItem *)rightButtonItem
+- (void)setSecondRightButtonTitle:(NSString *)secondRightButtonTitle
 {
-  if (!_rightButtonItem) {
+  _secondRightButtonTitle = secondRightButtonTitle;
+  _rightButtonItems = nil;
+}
+
+- (void)setSecondRightButtonIcon:(UIImage *)secondRightButtonIcon
+{
+  _secondRightButtonIcon = secondRightButtonIcon;
+  _rightButtonItems = nil;
+}
+
+- (void)setSecondRightButtonSystemIcon:(UIBarButtonSystemItem)secondRightButtonSystemIcon
+{
+  _secondRightButtonSystemIcon = secondRightButtonSystemIcon;
+  _rightButtonItems = nil;
+}
+
+- (void)setThirdRightButtonTitle:(NSString *)thirdRightButtonTitle
+{
+  _thirdRightButtonTitle = thirdRightButtonTitle;
+  _rightButtonItems = nil;
+}
+
+- (void)setThirdRightButtonIcon:(UIImage *)thirdRightButtonIcon
+{
+  _thirdRightButtonIcon = thirdRightButtonIcon;
+  _rightButtonItems = nil;
+}
+
+- (void)setThirdRightButtonSystemIcon:(UIBarButtonSystemItem)thirdRightButtonSystemIcon
+{
+  _thirdRightButtonSystemIcon = thirdRightButtonSystemIcon;
+  _rightButtonItems = nil;
+}
+
+- (UIBarButtonItem *)rightButtonItems
+{
+  if (!_rightButtonItems) {
+    NSMutableArray *rightButtonItems = [NSMutableArray array];
+
+    UIBarButtonItem *rightButtonItem;
     if (_rightButtonIcon) {
-      _rightButtonItem =
+      rightButtonItem =
       [[UIBarButtonItem alloc] initWithImage:_rightButtonIcon
                                        style:UIBarButtonItemStylePlain
                                       target:self
                                       action:@selector(handleRightButtonPress)];
 
     } else if (_rightButtonTitle.length) {
-      _rightButtonItem =
+      rightButtonItem =
       [[UIBarButtonItem alloc] initWithTitle:_rightButtonTitle
                                        style:UIBarButtonItemStylePlain
                                       target:self
                                       action:@selector(handleRightButtonPress)];
 
     } else if (_rightButtonSystemIcon != NSNotFound) {
-      _rightButtonItem =
+      rightButtonItem =
       [[UIBarButtonItem alloc] initWithBarButtonSystemItem:_rightButtonSystemIcon
                                       target:self
                                       action:@selector(handleRightButtonPress)];
-    } else {
-      _rightButtonItem = nil;
     }
+
+    if  (rightButtonItem != nil) {
+      [rightButtonItems addObject: rightButtonItem];
+    }
+
+    UIBarButtonItem *secondRightButtonItem;
+    if (_secondRightButtonIcon) {
+      secondRightButtonItem =
+      [[UIBarButtonItem alloc] initWithImage:_secondRightButtonIcon
+                                       style:UIBarButtonItemStylePlain
+                                      target:self
+                                      action:@selector(handleSecondRightButtonPress)];
+
+    } else if (_secondRightButtonTitle.length) {
+      secondRightButtonItem =
+      [[UIBarButtonItem alloc] initWithTitle:_secondRightButtonTitle
+                                       style:UIBarButtonItemStylePlain
+                                      target:self
+                                      action:@selector(handleSecondRightButtonPress)];
+
+    } else if (_secondRightButtonSystemIcon != NSNotFound) {
+      secondRightButtonItem =
+      [[UIBarButtonItem alloc] initWithBarButtonSystemItem:_secondRightButtonSystemIcon
+                                      target:self
+                                      action:@selector(handleSecondRightButtonPress)];
+    }
+
+    if  (secondRightButtonItem != nil) {
+      [rightButtonItems addObject: secondRightButtonItem];
+    }
+
+    UIBarButtonItem *thirdRightButtonItem;
+    if (_thirdRightButtonIcon) {
+      thirdRightButtonItem =
+      [[UIBarButtonItem alloc] initWithImage:_thirdRightButtonIcon
+                                       style:UIBarButtonItemStylePlain
+                                      target:self
+                                      action:@selector(handleThirdRightButtonPress)];
+
+    } else if (_thirdRightButtonTitle.length) {
+      thirdRightButtonItem =
+      [[UIBarButtonItem alloc] initWithTitle:_thirdRightButtonTitle
+                                       style:UIBarButtonItemStylePlain
+                                      target:self
+                                      action:@selector(handleThirdRightButtonPress)];
+
+    } else if (_thirdRightButtonSystemIcon != NSNotFound) {
+      thirdRightButtonItem =
+      [[UIBarButtonItem alloc] initWithBarButtonSystemItem:_thirdRightButtonSystemIcon
+                                      target:self
+                                      action:@selector(handleThirdRightButtonPress)];
+    }
+
+    if  (thirdRightButtonItem != nil) {
+      [rightButtonItems addObject: thirdRightButtonItem];
+    }
+
+    _rightButtonItems = rightButtonItems;
   }
-  return _rightButtonItem;
+  return _rightButtonItems;
 }
 
 - (void)handleRightButtonPress
 {
   if (_onRightButtonPress) {
     _onRightButtonPress(nil);
+  }
+}
+
+- (void)handleSecondRightButtonPress
+{
+  if (_onSecondRightButtonPress) {
+    _onSecondRightButtonPress(nil);
+  }
+}
+
+- (void)handleThirdRightButtonPress
+{
+  if (_onThirdRightButtonPress) {
+    _onThirdRightButtonPress(nil);
   }
 }
 

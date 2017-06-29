@@ -129,7 +129,7 @@ static UIView *RCTFindNavBarShadowViewInView(UIView *view)
     item.backBarButtonItem = _navItem.backButtonItem;
 #endif //TARGET_OS_TV
     item.leftBarButtonItems = _navItem.leftButtonItems;
-    item.rightBarButtonItem = _navItem.rightButtonItem;
+    item.rightBarButtonItem = _navItem.rightButtonItems;
   }
 }
 

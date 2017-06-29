@@ -78,8 +78,18 @@ RCT_EXPORT_VIEW_PROPERTY(rightButtonIcon, UIImage)
 RCT_EXPORT_VIEW_PROPERTY(rightButtonTitle, NSString)
 RCT_EXPORT_VIEW_PROPERTY(rightButtonSystemIcon, UIBarButtonSystemItem)
 
+RCT_EXPORT_VIEW_PROPERTY(secondRightButtonTitle, NSString)
+RCT_EXPORT_VIEW_PROPERTY(secondRightButtonIcon, UIImage)
+RCT_EXPORT_VIEW_PROPERTY(secondRightButtonSystemIcon, UIBarButtonSystemItem)
+
+RCT_EXPORT_VIEW_PROPERTY(thirdRightButtonTitle, NSString)
+RCT_EXPORT_VIEW_PROPERTY(thirdRightButtonIcon, UIImage)
+RCT_EXPORT_VIEW_PROPERTY(thirdRightButtonSystemIcon, UIBarButtonSystemItem)
+
 RCT_EXPORT_VIEW_PROPERTY(onLeftButtonPress, RCTBubblingEventBlock)
 RCT_EXPORT_VIEW_PROPERTY(onSecondLeftButtonPress, RCTBubblingEventBlock)
 RCT_EXPORT_VIEW_PROPERTY(onRightButtonPress, RCTBubblingEventBlock)
+RCT_EXPORT_VIEW_PROPERTY(onSecondRightButtonPress, RCTBubblingEventBlock)
+RCT_EXPORT_VIEW_PROPERTY(onThirdRightButtonPress, RCTBubblingEventBlock)
 
 @end
