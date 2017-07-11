@@ -107,7 +107,32 @@ static UIView *RCTFindNavBarShadowViewInView(UIView *view)
 - (void)viewWillAppear:(BOOL)animated
 {
   [super viewWillAppear:animated];
+  [self updateNavigationBar:animated];
+}
 
+- (void)loadView
+{
+  // Add a wrapper so that the wrapper view managed by the
+  // UINavigationController doesn't end up resetting the frames for
+  //`contentView` which is a react-managed view.
+  _wrapperView = [[UIView alloc] initWithFrame:_contentView.bounds];
+  [_wrapperView addSubview:_contentView];
+  self.view = _wrapperView;
+}
+
+- (void)didMoveToParentViewController:(UIViewController *)parent
+{
+  // There's no clear setter for navigation controllers, but did move to parent
+  // view controller provides the desired effect. This is called after a pop
+  // finishes, be it a swipe to go back or a standard tap on the back button
+  [super didMoveToParentViewController:parent];
+  if (parent == nil || [parent isKindOfClass:[UINavigationController class]]) {
+    [self.navigationListener wrapperViewController:self
+                     didMoveToNavigationController:(UINavigationController *)parent];
+  }
+}
+
+- (void)updateNavigationBar:(BOOL)animated {
   // TODO: find a way to make this less-tightly coupled to navigation controller
   if ([self.parentViewController isKindOfClass:[UINavigationController class]])
   {
@@ -133,26 +158,10 @@ static UIView *RCTFindNavBarShadowViewInView(UIView *view)
   }
 }
 
-- (void)loadView
+- (void)updateWithNavItem:(RCTNavItem *)navItem
 {
-  // Add a wrapper so that the wrapper view managed by the
-  // UINavigationController doesn't end up resetting the frames for
-  //`contentView` which is a react-managed view.
-  _wrapperView = [[UIView alloc] initWithFrame:_contentView.bounds];
-  [_wrapperView addSubview:_contentView];
-  self.view = _wrapperView;
-}
-
-- (void)didMoveToParentViewController:(UIViewController *)parent
-{
-  // There's no clear setter for navigation controllers, but did move to parent
-  // view controller provides the desired effect. This is called after a pop
-  // finishes, be it a swipe to go back or a standard tap on the back button
-  [super didMoveToParentViewController:parent];
-  if (parent == nil || [parent isKindOfClass:[UINavigationController class]]) {
-    [self.navigationListener wrapperViewController:self
-                     didMoveToNavigationController:(UINavigationController *)parent];
-  }
+  self.navItem = navItem;
+  [self updateNavigationBar:false];
 }
 
 @end

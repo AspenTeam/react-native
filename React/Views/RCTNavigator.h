@@ -17,6 +17,7 @@
 
 @property (nonatomic, strong) UIView *reactNavSuperviewLink;
 @property (nonatomic, assign) NSInteger requestedTopOfStack;
+@property (nonatomic, assign) BOOL shouldUpdateNavigationItems;
 @property (nonatomic, assign) BOOL animated;
 @property (nonatomic, assign) BOOL interactivePopGestureEnabled;
 

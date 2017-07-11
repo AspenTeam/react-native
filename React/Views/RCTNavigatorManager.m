@@ -25,6 +25,7 @@ RCT_EXPORT_MODULE()
 }
 
 RCT_EXPORT_VIEW_PROPERTY(requestedTopOfStack, NSInteger)
+RCT_EXPORT_VIEW_PROPERTY(shouldUpdateNavigationItems, BOOL)
 RCT_EXPORT_VIEW_PROPERTY(animated, BOOL)
 RCT_EXPORT_VIEW_PROPERTY(onNavigationProgress, RCTDirectEventBlock)
 RCT_EXPORT_VIEW_PROPERTY(onNavigationComplete, RCTBubblingEventBlock)

@@ -586,11 +586,21 @@ BOOL jsGettingtooSlow =
     } else {
       RCTLogError(@"Pushing or popping more than one view at a time from JS");
     }
-  } else if (jsCatchingUp) {
-    [self freeLock]; // Nothing to push/pop
   } else {
-    // Else, JS making no progress, could have been unrelated to anything nav.
-    return;
+    if (_shouldUpdateNavigationItems) {
+      for (NSUInteger i = 0; i < MIN(self.reactSubviews.count, _navigationController.viewControllers.count); i++) {
+        UIViewController * vc = _navigationController.viewControllers[i];
+        if ([vc isKindOfClass:[RCTWrapperViewController class]]) {
+          [(RCTWrapperViewController *)vc updateWithNavItem:(RCTNavItem *)self.reactSubviews[i]];
+        }
+      }
+    }
+    if (jsCatchingUp) {
+      [self freeLock]; // Nothing to push/pop
+    } else {
+      // Else, JS making no progress, could have been unrelated to anything nav.
+      return;
+    }
   }
 
   // Only make a copy of the subviews whose validity we expect to be able to check (in the loop, above),

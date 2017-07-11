@@ -1009,6 +1009,7 @@ var NavigatorIOS = React.createClass({
           style={styles.transitioner}
           vertical={this.props.vertical}
           requestedTopOfStack={this.state.requestedTopOfStack}
+          shouldUpdateNavigationItems={shouldRecurseToNavigator}
           animated={animated}
           onNavigationComplete={this._handleNavigationComplete}
           interactivePopGestureEnabled={this.props.interactivePopGestureEnabled}>
