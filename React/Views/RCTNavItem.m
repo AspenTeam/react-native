@@ -34,6 +34,8 @@
     _leftButtonSystemIcon = NSNotFound;
     _secondLeftButtonSystemIcon = NSNotFound;
     _rightButtonSystemIcon = NSNotFound;
+    _secondRightButtonSystemIcon = NSNotFound;
+    _thirdRightButtonSystemIcon = NSNotFound;
   }
   return self;
 }
