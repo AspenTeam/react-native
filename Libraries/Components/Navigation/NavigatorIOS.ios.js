@@ -986,7 +986,7 @@ var NavigatorIOS = React.createClass({
             route={route}
             {...passProps}
           />
-          { titleComponent ? <TitleComponent title={title} {...titleComponentPassProps} /> : undefined }
+          { titleComponent ? <TitleComponent title={title} route={route} {...titleComponentPassProps} /> : undefined }
         </RCTNavigatorItem>
       </StaticContainer>
     );
