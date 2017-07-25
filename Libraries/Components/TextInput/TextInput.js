@@ -561,6 +561,7 @@ const TextInput = React.createClass({
 
   _inputRef: (undefined: any),
   _focusSubscription: (undefined: ?Function),
+  _currentNativeText: (undefined: ?string),
   _lastNativeText: (undefined: ?string),
   _lastNativeSelection: (undefined: ?Selection),
 
@@ -798,6 +799,7 @@ const TextInput = React.createClass({
       return;
     }
 
+    this._currentNativeText = this._lastNativeText;
     this._lastNativeText = text;
     this.forceUpdate();
   },
@@ -824,7 +826,7 @@ const TextInput = React.createClass({
     // that we have in JS.
     const nativeProps = {};
 
-    if (this._lastNativeText !== this.props.value && typeof this.props.value === 'string') {
+    if (this._lastNativeText !== this.props.value && this._currentNativeText !== this.props.value && typeof this.props.value === 'string') {
       nativeProps.text = this.props.value;
     }
 
