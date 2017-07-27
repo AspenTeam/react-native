@@ -51,6 +51,7 @@ NSString *const RCTJSPostMessageHost = @"postMessage";
     _contentInset = UIEdgeInsetsZero;
     _webView = [[UIWebView alloc] initWithFrame:self.bounds];
     _webView.delegate = self;
+    _webView.keyboardDisplayRequiresUserAction = NO;
     [self addSubview:_webView];
   }
   return self;
