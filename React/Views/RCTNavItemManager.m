@@ -80,6 +80,7 @@ RCT_EXPORT_VIEW_PROPERTY(rightButtonSystemIcon, UIBarButtonSystemItem)
 
 RCT_EXPORT_VIEW_PROPERTY(secondRightButtonTitle, NSString)
 RCT_EXPORT_VIEW_PROPERTY(secondRightButtonIcon, UIImage)
+RCT_EXPORT_VIEW_PROPERTY(secondRightButtonIconIsColor, BOOL)
 RCT_EXPORT_VIEW_PROPERTY(secondRightButtonSystemIcon, UIBarButtonSystemItem)
 
 RCT_EXPORT_VIEW_PROPERTY(thirdRightButtonTitle, NSString)

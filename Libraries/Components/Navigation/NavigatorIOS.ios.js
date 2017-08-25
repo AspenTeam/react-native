@@ -104,6 +104,7 @@ type Route = {
   onRightButtonPress?: Function,
   secondRightButtonTitle?: string,
   secondRightButtonIcon?: Object,
+  secondRightButtonIconIsColor: boolean,
   secondRightButtonSystemIcon?: SystemButtonType,
   onSecondRightButtonPress?: Function,
   thirdRightButtonTitle?: string,
@@ -466,6 +467,8 @@ var NavigatorIOS = React.createClass({
        * this source.
        */
       secondRightButtonIcon: Image.propTypes.source,
+
+      secondRightButtonIconIsColor: PropTypes.bool,
 
       /**
        * If set, the left navigation button will display this text.

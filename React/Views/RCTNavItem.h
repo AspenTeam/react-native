@@ -25,6 +25,7 @@
 @property (nonatomic, copy) NSString *rightButtonTitle;
 @property (nonatomic, assign) UIBarButtonSystemItem rightButtonSystemIcon;
 @property (nonatomic, strong) UIImage *secondRightButtonIcon;
+@property (nonatomic, assign) BOOL secondRightButtonIconIsColor;
 @property (nonatomic, copy) NSString *secondRightButtonTitle;
 @property (nonatomic, assign) UIBarButtonSystemItem secondRightButtonSystemIcon;
 @property (nonatomic, strong) UIImage *thirdRightButtonIcon;

@@ -271,8 +271,13 @@
 
     UIBarButtonItem *secondRightButtonItem;
     if (_secondRightButtonIcon) {
+      UIImage * icon = _secondRightButtonIcon;
+      if (_secondRightButtonIconIsColor) {
+        icon = [_secondRightButtonIcon imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+      }
+      if (_secondRightButtonIcon)
       secondRightButtonItem =
-      [[UIBarButtonItem alloc] initWithImage:_secondRightButtonIcon
+      [[UIBarButtonItem alloc] initWithImage:icon
                                        style:UIBarButtonItemStylePlain
                                       target:self
                                       action:@selector(handleSecondRightButtonPress)];
