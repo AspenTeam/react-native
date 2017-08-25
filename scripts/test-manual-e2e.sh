@@ -36,6 +36,8 @@ rm -rf android
 
 success "Generated artifacts for Maven"
 
+npm install
+
 npm pack
 
 PACKAGE=$(pwd)/react-native-$PACKAGE_VERSION.tgz
