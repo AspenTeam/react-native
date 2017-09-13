@@ -138,9 +138,9 @@ RCT_NOT_IMPLEMENTED(- (instancetype)initWithCoder:(NSCoder *)aDecoder)
 
 - (void)acceptAutocorrect
 {
-  [_textView.inputDelegate selectionWillChange:_textView];
-  [_textView.inputDelegate selectionDidChange:_textView];
-  [self textViewDidChange:_textView];
+  [_backedTextInput.inputDelegate selectionWillChange:_backedTextInput];
+  [_backedTextInput.inputDelegate selectionDidChange:_backedTextInput];
+  [self textInputDidChange];
 }
 
 static NSAttributedString *removeReactTagFromString(NSAttributedString *string)
