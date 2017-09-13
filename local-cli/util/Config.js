@@ -13,6 +13,7 @@
 const blacklist = require('metro-bundler/src/blacklist');
 const findSymlinksPaths = require('./findSymlinksPaths');
 const fs = require('fs');
+const getPolyfills = require('../../rn-get-polyfills');
 const invariant = require('fbjs/lib/invariant');
 const path = require('path');
 
@@ -24,7 +25,6 @@ import type {
   GetTransformOptions,
   PostMinifyProcess,
   PostProcessModules,
-  // $FlowFixMe: Exported by metro bundler
   PostProcessBundleSourcemap
 } from 'metro-bundler/src/Bundler';
 import type {HasteImpl} from 'metro-bundler/src/node-haste/Module';
@@ -60,7 +60,7 @@ export type ConfigT = {
    * Specify any additional polyfill modules that should be processed
    * before regular module loading.
    */
- getPolyfillModuleNames: () => Array<string>,
+  getPolyfillModuleNames: () => Array<string>,
 
   /**
    * Specify any additional platforms to be used by the packager.
@@ -96,6 +96,12 @@ export type ConfigT = {
    * Returns the path to the worker that is used for transformation.
    */
   getWorkerPath: () => ?string,
+
+  /**
+   * An optional list of polyfills to include in the bundle. The list defaults
+   * to a set of common polyfills for Number, String, Array, Object...
+   */
+  getPolyfills: ({platform: ?string}) => $ReadOnlyArray<string>,
 
   /**
    * An optional function that can modify the code and source map of bundle
@@ -179,6 +185,7 @@ const Config = {
     getSourceExts: () => [],
     getTransformModulePath: () => require.resolve('metro-bundler/src/transformer.js'),
     getTransformOptions: async () => ({}),
+    getPolyfills,
     postMinifyProcess: x => x,
     postProcessModules: modules => modules,
     postProcessModulesForBuck: modules => modules,
@@ -188,51 +195,30 @@ const Config = {
   }: ConfigT),
 
   find(startDir: string): ConfigT {
-    return Config.findCustom(startDir, Config.DEFAULTS);
-  },
-
-  /**
-   * This allows a callsite to grab a config that may have custom fields or
-   * a different version of the config. In that case the defaults have to be
-   * specified explicitely.
-   */
-  findCustom<TConfig: {}>(startDir: string, defaults: TConfig): TConfig {
-    return Config.findWithPathCustom(startDir, defaults).config;
+    return this.findWithPath(startDir).config;
   },
 
   findWithPath(startDir: string): {config: ConfigT, projectPath: string} {
-    return Config.findWithPathCustom(startDir, Config.DEFAULTS);
-  },
-
-  findWithPathCustom<TConfig: {}>(startDir: string, defaults: TConfig): {config: TConfig, projectPath: string} {
     const configPath = findConfigPath(startDir);
     invariant(
       configPath,
       `Can't find "${RN_CLI_CONFIG}" file in any parent folder of "${startDir}"`,
     );
     const projectPath = path.dirname(configPath);
-    return {config: Config.loadFileCustom(configPath, defaults), projectPath};
+    return {config: this.loadFile(configPath, startDir), projectPath};
   },
 
   findOptional(startDir: string): ConfigT {
-    return Config.findOptionalCustom(startDir, Config.DEFAULTS);
-  },
-
-  findOptionalCustom<TConfig: {}>(startDir: string, defaults: TConfig): TConfig {
     const configPath = findConfigPath(startDir);
     return configPath
-      ? Config.loadFileCustom(configPath, defaults)
-      : {...defaults};
+      ? this.loadFile(configPath, startDir)
+      : {...Config.DEFAULTS};
   },
 
   loadFile(pathToConfig: string): ConfigT {
-    return Config.loadFileCustom(pathToConfig, Config.DEFAULTS);
-  },
-
-  loadFileCustom<TConfig: {}>(pathToConfig: string, defaults: TConfig): TConfig {
     //$FlowFixMe: necessary dynamic require
     const config: {} = require(pathToConfig);
-    return {...defaults, ...config};
+    return {...Config.DEFAULTS, ...config};
   },
 };
 
